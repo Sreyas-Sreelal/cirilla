@@ -32,7 +32,7 @@ func Start(config *types.Config) {
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 		cmds := commands.Init()
 
-		if update.Message.Text[0] == '/' {
+		if update.Message.Text[0] == config.CommandPrefix[0] {
 			commands.ExecuteCommand(update.Message.Text, cmds, bot)
 		}
 

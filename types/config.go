@@ -5,5 +5,6 @@ package types
 type Config struct {
 	TelegramToken string `envconfig:"CIRILLA_TOKEN"`
 	Debug         bool   `envconfig:"CIRILLA_DEBUG" default:"false"`
-	Timeout       int    `ennconfig:"CIRILLA_TIMEOUT"`
+	Timeout       int    `envconfig:"CIRILLA_TIMEOUT"`
+	CommandPrefix string `envconfig:"CIRILLA_CMD_PREFIX" default:"/"`
 }
