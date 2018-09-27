@@ -23,14 +23,13 @@ func Start(config *types.Config) {
 	u.Timeout = config.Timeout
 
 	updates, err := bot.GetUpdatesChan(u)
-
+	cmds := commands.Init()
 	for update := range updates {
 		if update.Message == nil {
 			continue
 		}
 
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-		cmds := commands.Init()
 
 		if update.Message.Text[0] == config.CommandPrefix[0] {
 			commands.ExecuteCommand(update, cmds, bot)
