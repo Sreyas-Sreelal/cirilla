@@ -33,7 +33,7 @@ func Start(config *types.Config) {
 		cmds := commands.Init()
 
 		if update.Message.Text[0] == config.CommandPrefix[0] {
-			commands.ExecuteCommand(update.Message.Text, cmds, bot)
+			commands.ExecuteCommand(update, cmds, bot)
 		}
 
 	}

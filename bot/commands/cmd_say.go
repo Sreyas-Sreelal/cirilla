@@ -2,10 +2,10 @@ package commands
 
 import (
 	"gopkg.in/telegram-bot-api.v4"
-	"log"
 )
 
-func commandSay(bot *tgbotapi.BotAPI) (err error) {
-	log.Println("Command executed")
+func commandSay(bot *tgbotapi.BotAPI, args string, Context bool, update tgbotapi.Update) (err error) {
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, args)
+	bot.Send(msg)
 	return nil
 }
