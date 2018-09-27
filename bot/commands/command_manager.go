@@ -28,7 +28,7 @@ func Init() map[string]Command {
 func ExecuteCommand(update tgbotapi.Update, Commands map[string]Command, bot *tgbotapi.BotAPI) {
 	var CommandName string
 
-	MessageSplitted := strings.Split(update.Message.Text, " ")
+	MessageSplitted := strings.SplitN(update.Message.Text, " ", 2)
 	CommandName, args := MessageSplitted[0], MessageSplitted[1]
 	if cmd, ok := Commands[CommandName]; ok {
 
