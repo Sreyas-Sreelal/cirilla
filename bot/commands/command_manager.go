@@ -8,9 +8,9 @@ import (
 
 //Command structure to represent commands
 type Command struct {
-	Function    func(bot *tgbotapi.BotAPI, args string, Context bool, update tgbotapi.Update) (err error)
+	Function    func(bot *tgbotapi.BotAPI, args []string, PassString bool, update tgbotapi.Update) (err error)
 	Description string
-	Context     bool
+	PassString  bool
 	Admin       bool
 }
 
@@ -20,7 +20,7 @@ func Init() map[string]Command {
 		"/say": {
 			Function:    commandSay,
 			Description: "Say as Cirilla",
-			Context:     true,
+			PassString:  true,
 			Admin:       true,
 		},
 	}
@@ -28,11 +28,19 @@ func Init() map[string]Command {
 
 //ExecuteCommand executes command
 func ExecuteCommand(update tgbotapi.Update, Commands map[string]Command, bot *tgbotapi.BotAPI) {
-	var CommandName string
+	CommandName := strings.Split(update.Message.Text, " ")[0]
 
-	MessageSplitted := strings.SplitN(update.Message.Text, " ", 2)
-	CommandName, args := MessageSplitted[0], MessageSplitted[1]
 	if cmd, ok := Commands[CommandName]; ok {
+		var args []string
+		if cmd.PassString {
+			args = append(args, strings.SplitN(update.Message.Text, " ", 2)[1])
+		} else {
+
+			Arguements := strings.Split(update.Message.Text, " ")[1:]
+			for _, i := range Arguements {
+				args = append(args, i)
+			}
+		}
 		if cmd.Admin {
 			chatConfig := update.Message.Chat.ChatConfig()
 			admins, _ := bot.GetChatAdministrators(chatConfig)
@@ -52,11 +60,11 @@ func ExecuteCommand(update tgbotapi.Update, Commands map[string]Command, bot *tg
 				return
 			}
 		}
-		err := cmd.Function(bot, args, cmd.Context, update)
+		err := cmd.Function(bot, args, cmd.PassString, update)
 		if err != nil {
 			log.Println("Command : ", CommandName, " Failed to execute")
-		} else {
-			log.Println("Unknown Command : ", CommandName, " Failed to execute")
 		}
+	} else {
+		log.Println("Unknown Command : ", CommandName)
 	}
 }
