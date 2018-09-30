@@ -14,18 +14,6 @@ type Command struct {
 	Admin       bool
 }
 
-//Init loads all commands
-func Init() map[string]Command {
-	return map[string]Command{
-		"/say": {
-			Function:    commandSay,
-			Description: "Say as Cirilla",
-			PassString:  true,
-			Admin:       true,
-		},
-	}
-}
-
 //ExecuteCommand executes command
 func ExecuteCommand(update tgbotapi.Update, Commands map[string]Command, bot *tgbotapi.BotAPI) {
 	CommandName := strings.Split(update.Message.Text, " ")[0]
