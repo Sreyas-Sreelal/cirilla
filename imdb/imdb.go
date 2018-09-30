@@ -31,7 +31,7 @@ func GetNewClient() *MovieClient {
 
 //SearchTitleURL returns result url after searching
 func (mc *MovieClient) SearchTitleURL(inputName string) (string, error) {
-	document, err := mc.GetHTMLDoc(fmt.Sprintf("https://www.imdb.com/find?q=%s&s=tt&exact=true&ref_=fn_tt_ex", inputName))
+	document, err := mc.GetHTMLDoc(fmt.Sprintf("https://www.imdb.com/find?q=%s&s=tt", inputName))
 	if err != nil {
 		log.Fatalf("[Error] Failed in geting HtmlDoc for input %s\n %q", inputName, err)
 		return "", err
@@ -88,6 +88,7 @@ func (mc *MovieClient) GetMovieDescription(document *goquery.Document) (string, 
 
 //GetMovieInfo fetches information about a movie
 func (mc *MovieClient) GetMovieInfo(inputName string) (MovieInfo, error) {
+	inputName = strings.Replace(inputName, " ", "+", len(inputName))
 	url, err := mc.SearchTitleURL(inputName)
 	if err != nil {
 		return MovieInfo{}, err
