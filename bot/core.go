@@ -31,8 +31,11 @@ func Start(config *types.Config) {
 
 		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
-		if update.Message.Text[0] == config.CommandPrefix[0] {
-			go commands.ExecuteCommand(update, cmds, bot)
+		if len(update.Message.Text) > 0 {
+
+			if update.Message.Text[0] == config.CommandPrefix[0] {
+				go commands.ExecuteCommand(update, cmds, bot)
+			}
 		}
 
 	}
