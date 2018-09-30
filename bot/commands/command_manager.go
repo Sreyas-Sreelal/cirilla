@@ -16,7 +16,7 @@ type Command struct {
 
 //ExecuteCommand executes command
 func ExecuteCommand(update tgbotapi.Update, Commands map[string]Command, bot *tgbotapi.BotAPI) {
-	CommandName := strings.Split(update.Message.Text, " ")[0]
+	CommandName := strings.Split(update.Message.Text, " ")[0][1:]
 
 	if cmd, ok := Commands[CommandName]; ok {
 		var args []string
