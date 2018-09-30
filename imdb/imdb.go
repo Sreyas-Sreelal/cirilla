@@ -19,6 +19,7 @@ type MovieInfo struct {
 	Name        string
 	Rating      string
 	Description string
+	PosterLink  string
 }
 
 //GetNewClient creates new instance of MovieClient
@@ -33,7 +34,7 @@ func GetNewClient() *MovieClient {
 func (mc *MovieClient) SearchTitleURL(inputName string) (string, error) {
 	document, err := mc.GetHTMLDoc(fmt.Sprintf("https://www.imdb.com/find?q=%s&s=tt", inputName))
 	if err != nil {
-		log.Fatalf("[Error] Failed in geting HtmlDoc for input %s\n %q", inputName, err)
+		log.Printf("[Error] Failed in geting HtmlDoc for input %s\n %q", inputName, err)
 		return "", err
 	}
 
@@ -86,6 +87,19 @@ func (mc *MovieClient) GetMovieDescription(document *goquery.Document) (string, 
 	return movieDescription, nil
 }
 
+//GetMoviePoster fetchs movie name
+func (mc *MovieClient) GetMoviePoster(document *goquery.Document) (string, error) {
+	url, success := document.Find(".poster").First().Find("a").Attr("href")
+
+	if !success {
+		return "", errors.New(fmt.Sprintf("Failed getting movie poster for %q", document))
+	}
+
+	url = "https://www.imdb.com" + url
+
+	return url, nil
+}
+
 //GetMovieInfo fetches information about a movie
 func (mc *MovieClient) GetMovieInfo(inputName string) (MovieInfo, error) {
 	inputName = strings.Replace(inputName, " ", "+", len(inputName))
@@ -114,6 +128,11 @@ func (mc *MovieClient) GetMovieInfo(inputName string) (MovieInfo, error) {
 		return MovieInfo{}, err
 	}
 
-	return MovieInfo{movieName, movieRating, movieDescription}, nil
+	moviePosterLink, err := mc.GetMoviePoster(document)
+	if err != nil {
+		return MovieInfo{}, err
+	}
+
+	return MovieInfo{movieName, movieRating, movieDescription, moviePosterLink}, nil
 
 }
