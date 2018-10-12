@@ -15,5 +15,11 @@ func Init() map[string]Command {
 			PassString:  true,
 			Admin:       false,
 		},
+		"torrent": {
+			Function:    commandTorrent,
+			Description: "Get magnet Link of torrent",
+			PassString:  true,
+			Admin:       false,
+		},
 	}
 }
