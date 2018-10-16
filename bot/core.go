@@ -19,7 +19,7 @@ func Start(config *types.Config) {
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 
-	u := tgbotapi.NewUpdate(int(^uint(0) >> 1))
+	u := tgbotapi.NewUpdate(0)
 	u.Timeout = config.Timeout
 
 	updates, err := bot.GetUpdatesChan(u)
