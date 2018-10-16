@@ -5,11 +5,13 @@ import (
 	"github.com/Sreyas-Sreelal/cirilla/types"
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
+	"time"
 )
 
 //Start bot
 func Start(config *types.Config) {
 
+	StartedTimeStamp := time.Now()
 	bot, err := tgbotapi.NewBotAPI(config.TelegramToken)
 	if err != nil {
 		log.Panic(err)
@@ -25,7 +27,8 @@ func Start(config *types.Config) {
 	updates, err := bot.GetUpdatesChan(u)
 	cmds := commands.Init()
 	for update := range updates {
-		if update.Message == nil {
+
+		if update.Message == nil || update.Message.Time().Before(StartedTimeStamp) {
 			continue
 		}
 
