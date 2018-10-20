@@ -19,6 +19,16 @@ type Command struct {
 func ExecuteCommand(config *types.Config, update tgbotapi.Update, Commands map[string]Command, bot *tgbotapi.BotAPI) {
 	CommandName := strings.Split(update.Message.Text, " ")[0][1:]
 
+	if CommandName == "help" {
+		var helpText string
+		for cmdName := range Commands {
+			helpText = helpText + cmdName + "\t-\t" + Commands[cmdName].Description + "\n"
+		}
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, helpText)
+		msg.ReplyToMessageID = update.Message.MessageID
+		bot.Send(msg)
+
+	}
 	if cmd, ok := Commands[CommandName]; ok {
 		var args []string
 		if cmd.PassString {
