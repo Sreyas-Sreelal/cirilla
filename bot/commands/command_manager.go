@@ -21,11 +21,14 @@ func ExecuteCommand(config *types.Config, update tgbotapi.Update, Commands map[s
 
 	if CommandName == "help" {
 		var helpText string
+		helpText = "*Cirilla Commands*\n```\n"
 		for cmdName := range Commands {
-			helpText = helpText + cmdName + "\t-\t" + Commands[cmdName].Description + "\n"
+			helpText = helpText + config.CommandPrefix + cmdName + "\t-\t" + Commands[cmdName].Description + "\n"
 		}
+		helpText = helpText + "\n```"
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, helpText)
 		msg.ReplyToMessageID = update.Message.MessageID
+		msg.ParseMode = "markdown"
 		bot.Send(msg)
 
 	}

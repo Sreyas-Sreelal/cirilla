@@ -19,13 +19,15 @@ func commandTorrent(config *types.Config, bot *tgbotapi.BotAPI, args []string, C
 		return nil
 	}
 
-	InfoMessage := "Name : " + torrentInfo.Name + "\n" + torrentInfo.Description + "\nLink : " + torrentInfo.URL
-	MagnetMessage := torrentInfo.MagnetURL
+	InfoMessage := "*Name* : " + torrentInfo.Name + "\n```\n" + torrentInfo.Description + "```\n*Link* : " + torrentInfo.URL
+	MagnetMessage := "```\n" + torrentInfo.MagnetURL + "```"
 
 	botmsg = tgbotapi.NewMessage(update.Message.Chat.ID, InfoMessage)
+	botmsg.ParseMode = "markdown"
 	bot.Send(botmsg)
 
 	botmsg = tgbotapi.NewMessage(update.Message.Chat.ID, MagnetMessage)
+	botmsg.ParseMode = "markdown"
 	bot.Send(botmsg)
 
 	return nil

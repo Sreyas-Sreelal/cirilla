@@ -23,8 +23,9 @@ func commandMinfo(config *types.Config, bot *tgbotapi.BotAPI, args []string, Con
 	photomsg.FileID = minfo.PosterLink
 	photomsg.UseExisting = true
 
-	InfoMessage := "Name : " + minfo.Name + "\n" + minfo.Description + "\nRating : " + minfo.Rating
+	InfoMessage := "*Name* : " + minfo.Name + "\n```\n" + minfo.Description + "```\n*Rating* : " + minfo.Rating
 	botmsg = tgbotapi.NewMessage(update.Message.Chat.ID, InfoMessage)
+	botmsg.ParseMode = "markdown"
 	bot.Send(botmsg)
 	bot.Send(photomsg)
 
