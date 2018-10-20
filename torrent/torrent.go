@@ -3,6 +3,7 @@ package torrent
 import (
 	"github.com/PuerkitoBio/goquery"
 	"github.com/pkg/errors"
+	"log"
 	"net/http"
 	"strings"
 )
@@ -30,15 +31,30 @@ func GetNewClient() *PbClient {
 
 //GetProxy grabs piratebay proxies
 func (pb *PbClient) GetProxy() (string, error) {
+	var err error
 	document, err := pb.GetHTMLDoc("https://thepiratebay-proxylist.se")
 	if err != nil {
 		return "", err
 	}
 
-	URLClass := document.Find(".odd").First().Find(".url").First()
-	ProxyLink, success := URLClass.Attr("data-href")
-	if !success {
-		return "", errors.New("Failed fetching Proxy URL ")
+	var ProxyLink string
+	var success bool
+	found := false
+
+	document.Find(".url").EachWithBreak(func(i int, links *goquery.Selection) bool {
+		ProxyLink, success = links.Attr("data-href")
+		log.Printf("Trying %s", ProxyLink)
+		_, err = pb.Client.Get(ProxyLink)
+		if err == nil && success {
+			log.Printf("Success %s", ProxyLink)
+			found = true
+			return false
+		}
+		return true
+	})
+
+	if !found {
+		return "", errors.New("Failed to fetch proxy")
 	}
 
 	return ProxyLink, nil
