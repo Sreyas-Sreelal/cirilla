@@ -2,11 +2,12 @@ package commands
 
 import (
 	"github.com/Sreyas-Sreelal/cirilla/imdb"
+	"github.com/Sreyas-Sreelal/cirilla/types"
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
 )
 
-func commandMinfo(bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
+func commandMinfo(config *types.Config, bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
 	mc := imdb.GetNewClient()
 	var botmsg tgbotapi.MessageConfig
 

@@ -1,10 +1,11 @@
 package commands
 
 import (
+	"github.com/Sreyas-Sreelal/cirilla/types"
 	"gopkg.in/telegram-bot-api.v4"
 )
 
-func commandSay(bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
+func commandSay(config *types.Config, bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, args[0])
 	deleteMessageConfig := tgbotapi.DeleteMessageConfig{
 		ChatID:    update.Message.Chat.ID,

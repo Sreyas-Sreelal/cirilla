@@ -37,7 +37,7 @@ func Start(config *types.Config) {
 		if len(update.Message.Text) > 0 {
 
 			if update.Message.Text[0] == config.CommandPrefix[0] {
-				go commands.ExecuteCommand(update, cmds, bot)
+				go commands.ExecuteCommand(config, update, cmds, bot)
 			}
 		}
 

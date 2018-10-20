@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"github.com/Sreyas-Sreelal/cirilla/types"
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
 	"strings"
@@ -8,14 +9,14 @@ import (
 
 //Command structure to represent commands
 type Command struct {
-	Function    func(bot *tgbotapi.BotAPI, args []string, PassString bool, update tgbotapi.Update) (err error)
+	Function    func(config *types.Config, bot *tgbotapi.BotAPI, args []string, PassString bool, update tgbotapi.Update) (err error)
 	Description string
 	PassString  bool
 	Admin       bool
 }
 
 //ExecuteCommand executes command
-func ExecuteCommand(update tgbotapi.Update, Commands map[string]Command, bot *tgbotapi.BotAPI) {
+func ExecuteCommand(config *types.Config, update tgbotapi.Update, Commands map[string]Command, bot *tgbotapi.BotAPI) {
 	CommandName := strings.Split(update.Message.Text, " ")[0][1:]
 
 	if cmd, ok := Commands[CommandName]; ok {
@@ -48,7 +49,7 @@ func ExecuteCommand(update tgbotapi.Update, Commands map[string]Command, bot *tg
 				return
 			}
 		}
-		err := cmd.Function(bot, args, cmd.PassString, update)
+		err := cmd.Function(config, bot, args, cmd.PassString, update)
 		if err != nil {
 			log.Println("Command : ", CommandName, " Failed to execute")
 		}

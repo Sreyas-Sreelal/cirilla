@@ -2,11 +2,12 @@ package commands
 
 import (
 	"github.com/Sreyas-Sreelal/cirilla/torrent"
+	"github.com/Sreyas-Sreelal/cirilla/types"
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
 )
 
-func commandTorrent(bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
+func commandTorrent(config *types.Config, bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
 	pb := torrent.GetNewClient()
 	var botmsg tgbotapi.MessageConfig
 
