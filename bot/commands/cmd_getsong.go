@@ -14,7 +14,7 @@ func commandGetSong(config *types.Config, bot *tgbotapi.BotAPI, args []string, C
 	var botmsg tgbotapi.MessageConfig
 
 	options := youtubedl.YtOptions{
-		Path:        "youtube-dl",
+		Path:        config.YotubedlPath,
 		TrackName:   args[0],
 		AudioFormat: "mp3",
 	}
