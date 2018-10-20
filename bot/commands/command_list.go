@@ -21,5 +21,11 @@ func Init() map[string]Command {
 			PassString:  true,
 			Admin:       false,
 		},
+		"getsong": {
+			Function:    commandGetSong,
+			Description: "Get songs by name",
+			PassString:  true,
+			Admin:       false,
+		},
 	}
 }
