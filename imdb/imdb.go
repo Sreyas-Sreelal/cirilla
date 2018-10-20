@@ -56,7 +56,7 @@ func (mc *MovieClient) GetMovieName(document *goquery.Document) (string, error) 
 		return "", errors.New(fmt.Sprintf("Failed getting movie name for %q", document))
 	}
 
-	movieName = strings.TrimSpace(movieName)
+	movieName = strings.Replace(strings.TrimSpace(movieName), "\u00a0", " ", -1)
 
 	return movieName, nil
 }
