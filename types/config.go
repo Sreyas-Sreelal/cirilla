@@ -7,4 +7,5 @@ type Config struct {
 	Debug         bool   `envconfig:"CIRILLA_DEBUG" default:"false"`
 	Timeout       int    `envconfig:"CIRILLA_TIMEOUT" default:"60"`
 	CommandPrefix string `envconfig:"CIRILLA_CMD_PREFIX" default:"/"`
+	YotubedlPath  string `envconfig:"CIRILLA_YOTUBEDL_PATH" default:"youtubedl"`
 }
