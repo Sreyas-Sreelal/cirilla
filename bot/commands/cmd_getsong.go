@@ -6,7 +6,6 @@ import (
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
 	"os"
-	"strings"
 )
 
 func commandGetSong(config *types.Config, bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
@@ -19,9 +18,8 @@ func commandGetSong(config *types.Config, bot *tgbotapi.BotAPI, args []string, C
 		AudioFormat: "mp3",
 	}
 	FileName, err := youtubedl.YtSearchByName(options)
-	log.Print(FileName)
-	FileName = strings.Split(FileName, ".")[0] + ".mp3"
-	log.Print(FileName)
+	FileName = FileName + options.AudioFormat
+
 	if err != nil {
 		log.Print(err)
 		botmsg = tgbotapi.NewMessage(update.Message.Chat.ID, "Failed to get that song :( Please try again with another name")
