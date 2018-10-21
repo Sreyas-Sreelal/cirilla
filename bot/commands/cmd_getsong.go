@@ -18,7 +18,7 @@ func commandGetSong(config *types.Config, bot *tgbotapi.BotAPI, args []string, C
 		AudioFormat: "mp3",
 	}
 	FileName, err := youtubedl.YtSearchByName(options)
-	FileName = FileName + options.AudioFormat
+	FileName = FileName + "." + options.AudioFormat
 
 	if err != nil {
 		log.Print(err)
