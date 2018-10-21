@@ -16,6 +16,6 @@ Cirilla is a multipurpose telegram bot.Bot can help you in various tasks.Current
 
 * [goquery](https://www.github.com/PuerkitoBio/goquery) 
 
-* [telegram bot api](https://www.gopkg.in/telegram-bot-api.v4)
+* [telegram bot api](https://gopkg.in/telegram-bot-api.v4)
 
 * [envconfig](https://www.github.com/kelseyhightower/envconfig)
