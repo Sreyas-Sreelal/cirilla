@@ -15,8 +15,8 @@ type YtOptions struct {
 
 //TrackInfo holds Information about track
 type TrackInfo struct {
-	Title    string `json:"_filename"`
-	Duration int
+	Fulltitle string `json:"fulltitle"`
+	Duration  int
 }
 
 //YtGetTrackDetails gets information about a track
@@ -41,7 +41,7 @@ func YtGetTrackDetails(options YtOptions) (*TrackInfo, error) {
 	return audioData, nil
 }
 
-//YtSearchByName search and download youtube audio track using title
+//YtSearchByName search and download youtube audio track using Fulltitle
 func YtSearchByName(options YtOptions) (string, error) {
 
 	audioData, err := YtGetTrackDetails(options)
@@ -59,7 +59,9 @@ func YtSearchByName(options YtOptions) (string, error) {
 		"--extract-audio",
 		"--audio-format",
 		options.AudioFormat,
+		"--output",
+		audioData.Fulltitle+"."+options.AudioFormat,
 	).Run()
 
-	return audioData.Title, err
+	return audioData.Fulltitle, err
 }

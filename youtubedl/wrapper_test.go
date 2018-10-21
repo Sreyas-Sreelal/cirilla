@@ -40,7 +40,7 @@ func TestYtGetTrackDetails(t *testing.T) {
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Logf("Title is %s ", got.Title)
+				t.Logf("Fulltitle is %s ", got.Fulltitle)
 				t.Errorf("YtGetTrackDetails() = %v, want %v", got, tt.want)
 			}
 		})
