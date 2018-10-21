@@ -16,3 +16,6 @@ CachedData/
 CachedExtensions/
 logs/
 Backups/
+
+#ignore editor settings
+.vscode
