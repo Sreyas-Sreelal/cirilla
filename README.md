@@ -9,7 +9,7 @@ Cirilla is a multipurpose telegram bot.Bot can help you in various tasks.Current
 |/torrent|Get magnet Link of torrent
 |/getsong|Get songs by name
 |/say|Say as Cirilla
-|minfo|Get movie information
+|/minfo|Get movie information
  
 
 ## Dependencies
