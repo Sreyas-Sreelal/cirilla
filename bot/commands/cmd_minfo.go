@@ -27,7 +27,7 @@ func commandMinfo(config *types.Config, bot *tgbotapi.BotAPI, args []string, Con
 		return nil
 	}
 
-	InfoMessage := "Name : " + minfo.Name + "\n" + minfo.Description + "\nRating : " + minfo.Rating
+	InfoMessage := "🎬 Title : " + minfo.Name + "\n\n" + minfo.Description + "\n\n⭐️ Rating : " + minfo.Rating
 	photomsg := tgbotapi.NewPhotoUpload(update.Message.Chat.ID, nil)
 	photomsg.FileID = minfo.PosterLink
 	photomsg.UseExisting = true
