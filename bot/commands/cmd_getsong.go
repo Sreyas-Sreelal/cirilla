@@ -17,8 +17,6 @@ func commandGetSong(config *types.Config, bot *tgbotapi.BotAPI, args []string, C
 		return
 	}
 
-	var botmsg tgbotapi.MessageConfig
-
 	options := youtubedl.YtOptions{
 		Path:        config.YotubedlPath,
 		TrackName:   args[0],
@@ -29,7 +27,8 @@ func commandGetSong(config *types.Config, bot *tgbotapi.BotAPI, args []string, C
 
 	if err != nil {
 		log.Print(err)
-		botmsg = tgbotapi.NewMessage(update.Message.Chat.ID, "Failed to get that song :( Please try again with another name")
+		botmsg := tgbotapi.NewMessage(update.Message.Chat.ID, "Failed to get that song :( Please try again with another name")
+		botmsg.ReplyToMessageID = update.Message.MessageID
 		bot.Send(botmsg)
 		return err
 	}

@@ -19,6 +19,7 @@ func commandTorrent(config *types.Config, bot *tgbotapi.BotAPI, args []string, C
 	pb := torrent.GetNewClient()
 	var botmsg tgbotapi.MessageConfig
 
+	botmsg.ReplyToMessageID = update.Message.MessageID
 	torrentInfo, err := pb.GetTorrentInfo(args[0])
 	if err != nil {
 		log.Print(err)
