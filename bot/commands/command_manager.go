@@ -34,13 +34,15 @@ func ExecuteCommand(config *types.Config, update tgbotapi.Update, Commands map[s
 	}
 	if cmd, ok := Commands[CommandName]; ok {
 		var args []string
-		if cmd.PassString {
-			args = append(args, strings.SplitN(update.Message.Text, " ", 2)[1])
-		} else {
+		if len(strings.Split(update.Message.Text, " ")) > 1 {
+			if cmd.PassString {
+				args = append(args, strings.SplitN(update.Message.Text, " ", 2)[1])
+			} else {
 
-			Arguements := strings.Split(update.Message.Text, " ")[1:]
-			for _, i := range Arguements {
-				args = append(args, i)
+				Arguements := strings.Split(update.Message.Text, " ")[1:]
+				for _, i := range Arguements {
+					args = append(args, i)
+				}
 			}
 		}
 		if cmd.Admin {

@@ -5,13 +5,13 @@ import (
 	"github.com/Sreyas-Sreelal/cirilla/types"
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
-	"strings"
 )
 
 func commandTorrent(config *types.Config, bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
-	if len(strings.TrimSpace(args[0])) == 0 {
-		NoArgsMessage := tgbotapi.NewMessage(update.Message.Chat.ID, `Invalid usage please provide arguement for this command.For example:\n`+config.CommandPrefix+"```torrent avengers infinity war```")
+	if len(args) == 0 {
+		NoArgsMessage := tgbotapi.NewMessage(update.Message.Chat.ID, "Invalid usage please provide arguement for this command.For example:\n**"+config.CommandPrefix+"torrent avengers infinity war**")
 		NoArgsMessage.ReplyToMessageID = update.Message.MessageID
+		NoArgsMessage.ParseMode = "markdown"
 		bot.Send(NoArgsMessage)
 		return
 	}
