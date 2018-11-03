@@ -27,5 +27,11 @@ func Init() map[string]Command {
 			PassString:  true,
 			Admin:       false,
 		},
+		"yt2mp3": {
+			Function:    commandYt2Mp3,
+			Description: "Convert youtube videos to mp3",
+			PassString:  true,
+			Admin:       false,
+		},
 	}
 }
