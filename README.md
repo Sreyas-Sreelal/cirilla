@@ -10,6 +10,7 @@ Cirilla is a multipurpose telegram bot.Bot can help you in various tasks.Current
 |/getsong|Get songs by name
 |/say|Say as Cirilla
 |/minfo|Get movie information
+|/yt2mp3|Extract audio from yotube video id
  
 
 ## Dependencies
