@@ -6,6 +6,9 @@ import (
 )
 
 func commandSay(config *types.Config, bot *tgbotapi.BotAPI, args []string, Context bool, update tgbotapi.Update) (err error) {
+	if len(args) == 0 {
+		return
+	}
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, args[0])
 	deleteMessageConfig := tgbotapi.DeleteMessageConfig{
 		ChatID:    update.Message.Chat.ID,
