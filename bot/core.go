@@ -5,11 +5,18 @@ import (
 	"github.com/Sreyas-Sreelal/cirilla/types"
 	"gopkg.in/telegram-bot-api.v4"
 	"log"
+	"os"
 	"time"
 )
 
 //Start bot
 func Start(config *types.Config) {
+	var pmfile, err1 = os.Create("cirilla_pms.log")
+	if err1 != nil {
+		panic(err1)
+	}
+
+	PmLogger := log.New(pmfile, "", log.LstdFlags|log.Lshortfile)
 
 	StartedTimeStamp := time.Now()
 	bot, err := tgbotapi.NewBotAPI(config.TelegramToken)
@@ -31,8 +38,10 @@ func Start(config *types.Config) {
 		if update.Message == nil || update.Message.Time().Before(StartedTimeStamp) {
 			continue
 		}
-
-		log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+		if update.Message.Chat.IsPrivate() {
+			PmLogger.Printf("[%s] [%s] %s", update.Message.Chat.Title, update.Message.From.UserName, update.Message.Text)
+		}
+		log.Printf("[%s] [%s] %s", update.Message.Chat.Title, update.Message.From.UserName, update.Message.Text)
 
 		if len(update.Message.Text) > 0 {
 
