@@ -2,6 +2,7 @@ package torrent
 
 import (
 	"net/http"
+	"strings"
 	"testing"
 )
 
@@ -44,7 +45,7 @@ func TestPbClient_GetTorrentInfo(t *testing.T) {
 				t.Errorf("PbClient.GetTorrentInfo() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got.MagnetURL != tt.want.MagnetURL {
+			if strings.HasPrefix(got.MagnetURL, "magnet:?") {
 				t.Errorf("PbClient.GetTorrentInfo() = %s, want %s", got.MagnetURL, tt.want.MagnetURL)
 			}
 		})
