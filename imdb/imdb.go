@@ -32,7 +32,7 @@ func GetNewClient() *MovieClient {
 
 //SearchTitleURL returns result url after searching
 func (mc *MovieClient) SearchTitleURL(inputName string) (string, error) {
-	document, err := mc.GetHTMLDoc(fmt.Sprintf("https://www.imdb.com/find?q=%s&s=tt", inputName))
+	document, err := mc.GetHTMLDoc(fmt.Sprintf("https://www.imdb.com/find?q=%%22%s%%22&s=tt", inputName))
 	if err != nil {
 		log.Printf("[Error] Failed in geting HtmlDoc for input %s\n %q", inputName, err)
 		return "", err
