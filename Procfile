@@ -1,1 +1,1 @@
-worker: ./bin/cirlla
+worker: ./bin/cirilla 
