@@ -1,0 +1,3 @@
+https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git
+https://github.com/hugovelias/heroku-buildpack-youtube-dl.git
+https://github.com/heroku/heroku-buildpack-go.git
