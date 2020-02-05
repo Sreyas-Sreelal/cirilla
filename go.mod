@@ -1,7 +1,7 @@
 module github.com/Sreyas-Sreelal/cirilla
 
 require (
-	github.com/PuerkitoBio/goquery v1.5.0
+	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/pkg/errors v0.9.1
 	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
